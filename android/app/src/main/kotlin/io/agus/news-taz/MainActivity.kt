@@ -1,4 +1,4 @@
-package id.nexteam.next_starter
+package io.agus.news-taz
 
 import io.flutter.embedding.android.FlutterActivity
 
