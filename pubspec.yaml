@@ -49,7 +49,6 @@ dependencies:
   dio_log: ^5.3.0
   equatable: ^2.0.7
   
-  freezed: ^3.1.0
   get_it: ^8.0.3
   geolocator: ^14.0.2
   geocoding: ^4.0.0
@@ -69,6 +68,9 @@ dependencies:
   shimmer: ^3.0.0
   flutter_screenutil: ^5.9.3
   top_snackbar_flutter: ^3.1.0
+
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
   # lecle_downloads_path_provider: ^0.0.2+8
 
   # Local Database
@@ -89,6 +91,10 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   change_app_package_name: ^1.4.0
   icons_launcher: ^3.0.0
+  build_runner: ^2.5.4
+  
+  freezed: ^3.1.0
+  json_serializable: ^6.9.5
 
   # Local Database
   # drift_dev: ^2.5.2
@@ -138,7 +144,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 icons_launcher:
-  image_path: "assets/images/launcher.png"
+  image_path: "assets/images/logo.png"
   platforms:
     android:
       enable: true
