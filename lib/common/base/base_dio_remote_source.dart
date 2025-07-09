@@ -31,20 +31,21 @@ class BaseDioRemoteSource {
     bool isResponseAll = false,
   }) async {
     try {
-      if (isAuth) {
-        if (await _session.hasSession) {
-          final token = await _session.token;
-          _dio.options.headers.addAll({
-            "Authorization": "Bearer $token",
-          });
-        } else {
-          _dio.options.headers.remove("Authorization");
-        }
-      } else {
-        _dio.options.headers.remove("Authorization");
-      }
-      _dio.options.queryParameters.addAll({
-        "apiKey": Flavor.I.getString(Keys.apiKey),
+      // if (isAuth) {
+      //   if (await _session.hasSession) {
+      //     final token = await _session.token;
+      //     _dio.options.headers.addAll({
+      //       "Authorization": "Bearer $token",
+      //     });
+      //   } else {
+      //     _dio.options.headers.remove("Authorization");
+      //   }
+      // } else {
+      //   _dio.options.headers.remove("Authorization");
+      // }
+      final apiKey = Flavor.I.getString(Keys.apiKey);
+      _dio.options.headers.addAll({
+        "Authorization": "Bearer $apiKey",
       });
       final response = await request(_dio);
 

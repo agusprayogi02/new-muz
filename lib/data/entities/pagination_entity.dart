@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:next_starter/common/extensions/extensions.dart';
+import 'package:next_starter/data/dto/pagination_dto.dart';
 import 'package:next_starter/data/models/base_model.dart';
 
 class PaginationEntity<T extends BaseModel> extends Equatable {
@@ -16,14 +16,18 @@ class PaginationEntity<T extends BaseModel> extends Equatable {
   });
 
   factory PaginationEntity.fromJson(
-      Map<String, Object?> json, T Function(Map<String, Object?>) fromJson,
+      Map<String, Object?> json, T Function(Map<String, Object?>) fromJson, PaginationDto dto,
       {String itemsKey = "articles"}) {
+    final total =
+        json['totalResults'] != null ? (json['totalResults'] as int) ~/ (dto.pageSize ?? 10) : 1;
+    final nextPage = total - (dto.page ?? 0);
+    final page = dto.page ?? 1;
     return PaginationEntity(
       items:
           json[itemsKey] != null ? (json[itemsKey] as List).map((e) => fromJson(e)).toList() : [],
-      prevPage: json['prev_page'].toIntX(),
-      currentPage: json['current_page'].toIntX(),
-      nextPage: json['next_page'].toIntX(),
+      prevPage: page - 1,
+      currentPage: page,
+      nextPage: nextPage > 0 ? page + 1 : null,
     );
   }
 

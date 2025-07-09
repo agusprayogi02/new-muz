@@ -9,6 +9,7 @@ import 'package:next_starter/data/datasources/remote_datasources/news_remote/new
 
 import 'application/auth/auth_cubit.dart';
 import 'application/bloc/pagination_bloc.dart';
+import 'application/news/news_bloc.dart';
 import 'common/network/network_info.dart';
 import 'common/permission/permission.dart';
 import 'common/permission/permission_impl.dart';
@@ -62,4 +63,5 @@ Future<void> initializeDependencies(GlobalKey<NavigatorState> navigatorKey) asyn
   // news
   locator.registerSingleton<NewsRemote>(NewsRemoteImpl(locator.get(), locator.get()));
   locator.registerSingleton(NewsRepository(locator.get(), locator.get()));
+  locator.registerFactory(NewsBloc.new);
 }

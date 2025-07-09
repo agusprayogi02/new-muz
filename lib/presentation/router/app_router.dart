@@ -5,6 +5,7 @@ import 'package:next_starter/presentation/pages/error/error_page.dart';
 import '../pages/pages.dart';
 import 'routes/auth_route.dart';
 import 'routes/general_route.dart';
+import 'routes/news_route.dart';
 
 class AppRouter {
   static GoRouter router(GlobalKey<NavigatorState> navigatorKey) {
@@ -22,6 +23,7 @@ class AppRouter {
         ),
         ...AuthRoute.routes,
         ...GeneralRoute.routes,
+        ...NewsRoute.routes,
       ],
     );
   }

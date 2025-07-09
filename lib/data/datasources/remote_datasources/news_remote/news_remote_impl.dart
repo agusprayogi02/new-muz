@@ -17,7 +17,11 @@ class NewsRemoteImpl extends BaseDioRemoteSource implements NewsRemote {
         ApiPath.topHeadlines,
         queryParameters: dto.toJson(),
       ),
-      onResponse: (json) => PaginationEntity<NewsModel>.fromJson(json, NewsModel.fromJson),
+      onResponse: (json) => PaginationEntity<NewsModel>.fromJson(
+        json,
+        NewsModel.fromJson,
+        dto,
+      ),
     );
   }
 
@@ -26,7 +30,11 @@ class NewsRemoteImpl extends BaseDioRemoteSource implements NewsRemote {
     return networkRequest(
       isPaginate: true,
       request: (dio) => dio.get(ApiPath.everything, queryParameters: dto.toJson()),
-      onResponse: (json) => PaginationEntity<NewsModel>.fromJson(json, NewsModel.fromJson),
+      onResponse: (json) => PaginationEntity<NewsModel>.fromJson(
+        json,
+        NewsModel.fromJson,
+        dto,
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:next_starter/common/extensions/extensions.dart';
 
 import 'empty_image.dart';
 
@@ -40,20 +40,15 @@ class ImageWithLoader extends StatelessWidget {
           )
         : CachedNetworkImage(
             imageUrl: imageUrl,
-            placeholder: (context, url) => Shimmer.fromColors(
-              baseColor: Colors.grey[200]!,
-              highlightColor: Colors.white,
-              child: EmptyImage(
-                size: size,
-                width: width ?? size,
-              ),
-            ),
+            placeholder: (context, url) => EmptyImage(
+              size: size,
+              width: width ?? size,
+            ).shimmer(),
             imageBuilder: (context, imageProvider) => Container(
               height: size,
               width: width ?? size,
               decoration: BoxDecoration(
-                borderRadius: borderRadius ??
-                    BorderRadius.circular(radius ?? (size / 10)),
+                borderRadius: borderRadius ?? BorderRadius.circular(radius ?? (size / 10)),
                 image: DecorationImage(
                   image: imageProvider,
                   fit: fit ?? BoxFit.cover,
@@ -68,8 +63,7 @@ class ImageWithLoader extends StatelessWidget {
                     height: size,
                     width: width ?? size,
                     decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(radius ?? (size / 10)),
+                      borderRadius: BorderRadius.circular(radius ?? (size / 10)),
                       color: Colors.white,
                       boxShadow: boxShadow,
                     ),

@@ -34,6 +34,7 @@ class AppErrorWidget extends StatelessWidget {
             style: CustomTextTheme.paragraph1.copyWith(
               color: ColorTheme.statusRed,
             ),
+            textAlign: TextAlign.center,
           ),
           8.verticalSpace,
           Text(

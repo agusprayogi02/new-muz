@@ -17,14 +17,12 @@ class EmptyImage extends StatelessWidget {
     return Container(
       height: size ?? 50,
       width: width ?? size ?? 50,
-      margin: const EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
         color: Colors.grey[50],
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Colors.grey[200]!, width: 1),
       ),
-      child: child ??
-          const Center(child: Icon(CupertinoIcons.photo, color: Colors.grey)),
+      child: child ?? const Center(child: Icon(CupertinoIcons.photo, color: Colors.grey)),
     );
   }
 }

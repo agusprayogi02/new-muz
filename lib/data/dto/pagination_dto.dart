@@ -21,6 +21,8 @@ class PaginationDto extends Equatable {
         'pageSize': pageSize,
       };
 
+  PaginationDto toPaginationDto() => this;
+
   @override
   List<Object?> get props => [page, pageSize];
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:next_starter/common/extensions/context_extension.dart';
+import 'package:next_starter/common/extensions/extensions.dart';
+import 'package:next_starter/presentation/theme/theme.dart';
+import 'package:shimmer/shimmer.dart';
 
 extension WidgetExtensionX on Widget {
   SliverToBoxAdapter get toSliverBox => SliverToBoxAdapter(
@@ -62,4 +64,20 @@ extension WidgetExtensionX on Widget {
         key: key,
         child: this,
       );
+
+  Widget shimmer({bool enabled = true, bool isText = false}) => enabled
+      ? Shimmer.fromColors(
+          baseColor: ColorTheme.neutral[400]!,
+          highlightColor: ColorTheme.neutral[200]!,
+          child: isText
+              ? Container(
+                  decoration: BoxDecoration(
+                    color: ColorTheme.neutral[200],
+                    borderRadius: 8.rounded,
+                  ),
+                  child: this,
+                )
+              : this,
+        )
+      : this;
 }
