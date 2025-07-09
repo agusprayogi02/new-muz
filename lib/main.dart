@@ -12,7 +12,8 @@ void main() {
     color: Colors.green,
     name: 'PREVIEW',
     properties: {
-      Keys.apiUrl: 'https://jsonplaceholder.typicode.com/',
+      Keys.apiUrl:
+          'https://newsapi.org/v2/top-headlines?country=id&page=1&apiKey=3e4778c853c140b2a659b0c38882fcd2',
       // Keys.apiKey: 'jksdhfkjhs83rjkh324kj23h4',
       Configs.customKey: 'value',
     },
