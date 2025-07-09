@@ -4,6 +4,8 @@ import 'package:dio_log/dio_log.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:next_starter/data/datasources/remote_datasources/news_remote/news_remote.dart';
+import 'package:next_starter/data/datasources/remote_datasources/news_remote/news_remote_impl.dart';
 
 import 'application/auth/auth_cubit.dart';
 import 'application/bloc/pagination_bloc.dart';
@@ -21,6 +23,7 @@ import 'data/datasources/remote_datasources/post_remote/post_remote.dart';
 import 'data/datasources/remote_datasources/post_remote/post_remote_impl.dart';
 import 'data/datasources/session/session_source.dart';
 import 'data/repositories/auth_repository.dart';
+import 'data/repositories/news_repository.dart';
 import 'data/repositories/post_repository.dart';
 import 'presentation/router/app_router.dart';
 
@@ -55,4 +58,8 @@ Future<void> initializeDependencies(GlobalKey<NavigatorState> navigatorKey) asyn
   locator.registerSingleton<PostRemote>(PostRemoteImpl(locator.get(), locator.get()));
   locator.registerSingleton(PostRepository(locator.get(), locator.get()));
   locator.registerFactory(PaginationBloc.new);
+
+  // news
+  locator.registerSingleton<NewsRemote>(NewsRemoteImpl(locator.get(), locator.get()));
+  locator.registerSingleton(NewsRepository(locator.get(), locator.get()));
 }

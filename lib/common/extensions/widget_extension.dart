@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:next_starter/common/extensions/context_extension.dart';
 
 extension WidgetExtensionX on Widget {
   SliverToBoxAdapter get toSliverBox => SliverToBoxAdapter(
@@ -57,7 +58,7 @@ extension WidgetExtensionX on Widget {
         child: this,
       );
   SizedBox wFull(BuildContext context, {Key? key}) => SizedBox(
-        width: context.size?.width,
+        width: context.width,
         key: key,
         child: this,
       );

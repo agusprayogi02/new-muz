@@ -1,14 +1,10 @@
 import 'package:dio_log/dio_log.dart';
 import 'package:flavor/flavor.dart';
 import 'package:flutter/material.dart';
+import 'package:next_starter/presentation/pages/home/home_page.dart';
 
 import '../../common/extensions/extensions.dart';
-import '../../data/datasources/session/session_source.dart';
-import '../../injection.dart';
 import '../components/components.dart';
-import '../theme/theme.dart';
-import 'auth/auth.dart';
-import 'home/home_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -31,27 +27,19 @@ class _SplashPageState extends State<SplashPage> {
     if (Flavor.instance.environment != Environment.production) {
       showDebugBtn(context, btnColor: Colors.green);
     }
-    final user = await locator<SessionSource>().hasSession;
-    if (user) {
-      context.route.replace(HomePage.path);
-      return;
-    }
-    context.route.replace(LoginPage.path);
+    // final user = await locator<SessionSource>().hasSession;
+    // if (user) {
+    context.route.replace(HomePage.path);
+    // return;
+    // }
+    // context.route.replace(LoginPage.path);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: 12.rounded,
-          border: Border.all(
-            color: ColorTheme.primary,
-          ),
-        ),
-        child: const BaseLogo(),
-      ),
+      backgroundColor: Colors.grey[300],
+      body: Container(alignment: Alignment.center, child: const BaseLogo()),
     );
   }
 }

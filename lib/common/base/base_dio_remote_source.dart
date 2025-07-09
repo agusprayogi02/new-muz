@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flavor/flavor.dart';
 
 import '../../data/datasources/session/session_source.dart';
 import '../errors/api_exception.dart';
@@ -42,6 +43,9 @@ class BaseDioRemoteSource {
       } else {
         _dio.options.headers.remove("Authorization");
       }
+      _dio.options.queryParameters.addAll({
+        "apiKey": Flavor.I.getString(Keys.apiKey),
+      });
       final response = await request(_dio);
 
       if (response.statusCode == 401) {

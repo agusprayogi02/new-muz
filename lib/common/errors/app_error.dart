@@ -3,9 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'app_error.freezed.dart';
 
 @Freezed(copyWith: false, fromJson: false, toJson: false)
-class AppError with _$AppError {
-  const factory AppError.serverError(
-      {@Default(400) int code, required String message}) = _ServerError;
+abstract class AppError with _$AppError {
+  const factory AppError.serverError({@Default(400) int code, required String message}) =
+      _ServerError;
 
   const factory AppError.validationError({
     required String message,

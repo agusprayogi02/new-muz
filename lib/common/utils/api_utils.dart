@@ -5,22 +5,22 @@ import 'package:dio/dio.dart';
 class ApiUtils {
   static dynamic parseResponseData(Response<dynamic> response) {
     if (response.data is String) {
-      return jsonDecode(response.data)['payload']['data'];
+      return jsonDecode(response.data);
     }
-    if (response.data['payload'] == null) {
+    if (response.data == null) {
       return parseResponseMessage(response);
     }
-    return response.data['payload']['data'];
+    return response.data;
   }
 
   static dynamic parseResponsePaginate(Response<dynamic> response) {
     if (response.data is String) {
-      return jsonDecode(response.data)['payload'];
+      return jsonDecode(response.data);
     }
-    if (response.data['payload'] == null) {
+    if (response.data == null) {
       return parseResponseMessage(response);
     }
-    return response.data['payload'];
+    return response.data;
   }
 
   static String parseResponseMessage(Response<dynamic> response) {

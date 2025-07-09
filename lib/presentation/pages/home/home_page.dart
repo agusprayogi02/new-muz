@@ -18,11 +18,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: const BaseAppBar(
-        title: 'Posts',
+        title: 'News Taz',
       ),
       body: Center(
         child: PrimaryButton(
-          title: "Go to Post Page",
+          title: "Go to News Page",
           onTap: () {
             context.go(PostPage.path);
           },
