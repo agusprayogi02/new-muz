@@ -31,8 +31,7 @@ class AppCoreTheme {
     },
   );
 
-  static SystemUiOverlayStyle systemUiOverlayStyle =
-      SystemUiOverlayStyle.light.copyWith(
+  static SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle.light.copyWith(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
     systemStatusBarContrastEnforced: true,
@@ -180,7 +179,7 @@ class AppCoreTheme {
       ),
     ),
     // Modal Dialog Theme
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       // titleTextStyle: TextStyle(fontSize: 12,),
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
@@ -189,7 +188,7 @@ class AppCoreTheme {
       ),
     ),
     // Card Theme
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       elevation: 1.0,
       color: Colors.white,
       surfaceTintColor: Colors.white,
@@ -198,7 +197,7 @@ class AppCoreTheme {
       ),
     ),
     // Tab Bar Theme
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       labelPadding: EdgeInsets.zero,
       labelColor: primaryColor,
       labelStyle: const TextStyle(
@@ -214,8 +213,7 @@ class AppCoreTheme {
       dividerColor: Colors.transparent,
       indicatorColor: primaryColor,
       indicatorSize: TabBarIndicatorSize.label,
-      overlayColor: WidgetStateProperty.resolveWith<Color?>(
-          (Set<WidgetState> states) {
+      overlayColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
         if (states.contains(WidgetState.pressed)) {
           return AppCoreColor.primary.focus;
         }
@@ -234,8 +232,7 @@ class AppCoreTheme {
     // CheckBox Button Theme
     checkboxTheme: CheckboxThemeData(
       splashRadius: 5.0,
-      fillColor: WidgetStateProperty.resolveWith<Color?>(
-          (Set<WidgetState> states) {
+      fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
         if (states.contains(WidgetState.selected)) {
           return primaryColor;
         }
@@ -245,8 +242,7 @@ class AppCoreTheme {
     ),
     // Radio Button Theme
     radioTheme: RadioThemeData(
-      fillColor: WidgetStateProperty.resolveWith<Color?>(
-          (Set<WidgetState> states) {
+      fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
         if (states.contains(WidgetState.selected)) {
           return primaryColor;
         }
