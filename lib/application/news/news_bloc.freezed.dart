@@ -52,8 +52,6 @@ extension NewsEventPatterns on NewsEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetTopHeadlines value)? getTopHeadlines,
     TResult Function(_GetEverything value)? getEverything,
-    TResult Function(_FetchNextPage value)? fetchNextPage,
-    TResult Function(_Refresh value)? refresh,
     TResult Function(_SelectCountry value)? selectCountry,
     required TResult orElse(),
   }) {
@@ -63,10 +61,6 @@ extension NewsEventPatterns on NewsEvent {
         return getTopHeadlines(_that);
       case _GetEverything() when getEverything != null:
         return getEverything(_that);
-      case _FetchNextPage() when fetchNextPage != null:
-        return fetchNextPage(_that);
-      case _Refresh() when refresh != null:
-        return refresh(_that);
       case _SelectCountry() when selectCountry != null:
         return selectCountry(_that);
       case _:
@@ -91,8 +85,6 @@ extension NewsEventPatterns on NewsEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetTopHeadlines value) getTopHeadlines,
     required TResult Function(_GetEverything value) getEverything,
-    required TResult Function(_FetchNextPage value) fetchNextPage,
-    required TResult Function(_Refresh value) refresh,
     required TResult Function(_SelectCountry value) selectCountry,
   }) {
     final _that = this;
@@ -101,10 +93,6 @@ extension NewsEventPatterns on NewsEvent {
         return getTopHeadlines(_that);
       case _GetEverything():
         return getEverything(_that);
-      case _FetchNextPage():
-        return fetchNextPage(_that);
-      case _Refresh():
-        return refresh(_that);
       case _SelectCountry():
         return selectCountry(_that);
     }
@@ -126,8 +114,6 @@ extension NewsEventPatterns on NewsEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetTopHeadlines value)? getTopHeadlines,
     TResult? Function(_GetEverything value)? getEverything,
-    TResult? Function(_FetchNextPage value)? fetchNextPage,
-    TResult? Function(_Refresh value)? refresh,
     TResult? Function(_SelectCountry value)? selectCountry,
   }) {
     final _that = this;
@@ -136,10 +122,6 @@ extension NewsEventPatterns on NewsEvent {
         return getTopHeadlines(_that);
       case _GetEverything() when getEverything != null:
         return getEverything(_that);
-      case _FetchNextPage() when fetchNextPage != null:
-        return fetchNextPage(_that);
-      case _Refresh() when refresh != null:
-        return refresh(_that);
       case _SelectCountry() when selectCountry != null:
         return selectCountry(_that);
       case _:
@@ -163,8 +145,6 @@ extension NewsEventPatterns on NewsEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(NewsDto dto)? getTopHeadlines,
     TResult Function(NewsDto dto)? getEverything,
-    TResult Function(NewsDto dto)? fetchNextPage,
-    TResult Function(NewsDto dto)? refresh,
     TResult Function(String country)? selectCountry,
     required TResult orElse(),
   }) {
@@ -174,10 +154,6 @@ extension NewsEventPatterns on NewsEvent {
         return getTopHeadlines(_that.dto);
       case _GetEverything() when getEverything != null:
         return getEverything(_that.dto);
-      case _FetchNextPage() when fetchNextPage != null:
-        return fetchNextPage(_that.dto);
-      case _Refresh() when refresh != null:
-        return refresh(_that.dto);
       case _SelectCountry() when selectCountry != null:
         return selectCountry(_that.country);
       case _:
@@ -202,8 +178,6 @@ extension NewsEventPatterns on NewsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(NewsDto dto) getTopHeadlines,
     required TResult Function(NewsDto dto) getEverything,
-    required TResult Function(NewsDto dto) fetchNextPage,
-    required TResult Function(NewsDto dto) refresh,
     required TResult Function(String country) selectCountry,
   }) {
     final _that = this;
@@ -212,10 +186,6 @@ extension NewsEventPatterns on NewsEvent {
         return getTopHeadlines(_that.dto);
       case _GetEverything():
         return getEverything(_that.dto);
-      case _FetchNextPage():
-        return fetchNextPage(_that.dto);
-      case _Refresh():
-        return refresh(_that.dto);
       case _SelectCountry():
         return selectCountry(_that.country);
     }
@@ -237,8 +207,6 @@ extension NewsEventPatterns on NewsEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(NewsDto dto)? getTopHeadlines,
     TResult? Function(NewsDto dto)? getEverything,
-    TResult? Function(NewsDto dto)? fetchNextPage,
-    TResult? Function(NewsDto dto)? refresh,
     TResult? Function(String country)? selectCountry,
   }) {
     final _that = this;
@@ -247,10 +215,6 @@ extension NewsEventPatterns on NewsEvent {
         return getTopHeadlines(_that.dto);
       case _GetEverything() when getEverything != null:
         return getEverything(_that.dto);
-      case _FetchNextPage() when fetchNextPage != null:
-        return fetchNextPage(_that.dto);
-      case _Refresh() when refresh != null:
-        return refresh(_that.dto);
       case _SelectCountry() when selectCountry != null:
         return selectCountry(_that.country);
       case _:
@@ -379,132 +343,6 @@ class __$GetEverythingCopyWithImpl<$Res>
     Object? dto = null,
   }) {
     return _then(_GetEverything(
-      null == dto
-          ? _self.dto
-          : dto // ignore: cast_nullable_to_non_nullable
-              as NewsDto,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _FetchNextPage implements NewsEvent {
-  const _FetchNextPage(this.dto);
-
-  final NewsDto dto;
-
-  /// Create a copy of NewsEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$FetchNextPageCopyWith<_FetchNextPage> get copyWith =>
-      __$FetchNextPageCopyWithImpl<_FetchNextPage>(this, _$identity);
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _FetchNextPage &&
-            (identical(other.dto, dto) || other.dto == dto));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, dto);
-
-  @override
-  String toString() {
-    return 'NewsEvent.fetchNextPage(dto: $dto)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$FetchNextPageCopyWith<$Res>
-    implements $NewsEventCopyWith<$Res> {
-  factory _$FetchNextPageCopyWith(
-          _FetchNextPage value, $Res Function(_FetchNextPage) _then) =
-      __$FetchNextPageCopyWithImpl;
-  @useResult
-  $Res call({NewsDto dto});
-}
-
-/// @nodoc
-class __$FetchNextPageCopyWithImpl<$Res>
-    implements _$FetchNextPageCopyWith<$Res> {
-  __$FetchNextPageCopyWithImpl(this._self, this._then);
-
-  final _FetchNextPage _self;
-  final $Res Function(_FetchNextPage) _then;
-
-  /// Create a copy of NewsEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? dto = null,
-  }) {
-    return _then(_FetchNextPage(
-      null == dto
-          ? _self.dto
-          : dto // ignore: cast_nullable_to_non_nullable
-              as NewsDto,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _Refresh implements NewsEvent {
-  const _Refresh(this.dto);
-
-  final NewsDto dto;
-
-  /// Create a copy of NewsEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$RefreshCopyWith<_Refresh> get copyWith =>
-      __$RefreshCopyWithImpl<_Refresh>(this, _$identity);
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _Refresh &&
-            (identical(other.dto, dto) || other.dto == dto));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, dto);
-
-  @override
-  String toString() {
-    return 'NewsEvent.refresh(dto: $dto)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$RefreshCopyWith<$Res>
-    implements $NewsEventCopyWith<$Res> {
-  factory _$RefreshCopyWith(_Refresh value, $Res Function(_Refresh) _then) =
-      __$RefreshCopyWithImpl;
-  @useResult
-  $Res call({NewsDto dto});
-}
-
-/// @nodoc
-class __$RefreshCopyWithImpl<$Res> implements _$RefreshCopyWith<$Res> {
-  __$RefreshCopyWithImpl(this._self, this._then);
-
-  final _Refresh _self;
-  final $Res Function(_Refresh) _then;
-
-  /// Create a copy of NewsEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? dto = null,
-  }) {
-    return _then(_Refresh(
       null == dto
           ? _self.dto
           : dto // ignore: cast_nullable_to_non_nullable

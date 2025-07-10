@@ -18,16 +18,15 @@ class PaginationEntity<T extends BaseModel> extends Equatable {
   factory PaginationEntity.fromJson(
       Map<String, Object?> json, T Function(Map<String, Object?>) fromJson, PaginationDto dto,
       {String itemsKey = "articles"}) {
-    final total =
-        json['totalResults'] != null ? (json['totalResults'] as int) ~/ (dto.pageSize ?? 10) : 1;
-    final nextPage = total - (dto.page ?? 0);
     final page = dto.page ?? 1;
+    final items = json[itemsKey] != null
+        ? (json[itemsKey] as List).map<T>((e) => fromJson(e)).toList()
+        : <T>[];
     return PaginationEntity(
-      items:
-          json[itemsKey] != null ? (json[itemsKey] as List).map((e) => fromJson(e)).toList() : [],
+      items: items,
       prevPage: page - 1,
       currentPage: page,
-      nextPage: nextPage > 0 ? page + 1 : null,
+      nextPage: items.isEmpty ? null : page + 1,
     );
   }
 

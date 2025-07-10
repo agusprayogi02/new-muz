@@ -16,49 +16,74 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     on<NewsEvent>((event, emit) async {
       await event.map(
         getTopHeadlines: (e) async {
-          emit(const NewsState(status: NewsStatus.loading));
-          final rest = await repo.getTopHeadlines(e.dto);
-          rest.fold(
-            (l) => emit(NewsState(status: NewsStatus.error, errorMessage: l.message)),
-            (r) => emit(NewsState(status: NewsStatus.loaded, data: r)),
-          );
-        },
-        getEverything: (e) async {
-          emit(const NewsState(status: NewsStatus.loading));
-          final rest = await repo.getEverything(e.dto);
-          rest.fold(
-            (l) => emit(NewsState(status: NewsStatus.error, errorMessage: l.message)),
-            (r) => emit(NewsState(status: NewsStatus.loaded, data: r)),
-          );
-        },
-        fetchNextPage: (e) async {
-          if (state.hasReachedMax || state.status == NewsStatus.loading) return;
-          emit(state.copyWith(status: NewsStatus.loading));
+          final isFirstPage = (e.dto.page ?? 1) == 1;
+          if (!isFirstPage && (state.hasReachedMax || state.status == NewsStatus.loading)) return;
+          if (isFirstPage) {
+            emit(const NewsState(status: NewsStatus.loading));
+          } else {
+            emit(state.copyWith(status: NewsStatus.loading));
+          }
           final rest = await repo.getTopHeadlines(e.dto);
           rest.fold(
             (l) => emit(state.copyWith(status: NewsStatus.error, errorMessage: l.message)),
             (r) {
-              final allItems = List<NewsModel>.from(state.data.items)..addAll(r.items);
               final hasReachedMax = r.items.isEmpty || r.nextPage == null;
-              emit(state.copyWith(
-                status: NewsStatus.loaded,
-                data: PaginationEntity(
-                  items: allItems,
-                  prevPage: r.prevPage,
-                  currentPage: r.currentPage,
-                  nextPage: r.nextPage,
-                ),
-                hasReachedMax: hasReachedMax,
-              ));
+              print("hasReachedMax: ${r.items.isEmpty} ${r.nextPage == null} $hasReachedMax");
+              if (isFirstPage) {
+                emit(state.copyWith(
+                  status: NewsStatus.loaded,
+                  data: r,
+                  hasReachedMax: hasReachedMax,
+                ));
+              } else {
+                final allItems = List<NewsModel>.from(state.data.items)..addAll(r.items);
+                emit(state.copyWith(
+                  status: NewsStatus.loaded,
+                  data: PaginationEntity(
+                    items: allItems,
+                    prevPage: r.prevPage,
+                    currentPage: r.currentPage,
+                    nextPage: r.nextPage,
+                  ),
+                  hasReachedMax: hasReachedMax,
+                ));
+              }
             },
           );
         },
-        refresh: (e) async {
-          emit(const NewsState(status: NewsStatus.loading));
-          final rest = await repo.getTopHeadlines(e.dto);
+        getEverything: (e) async {
+          final isFirstPage = (e.dto.page ?? 1) == 1;
+          if (!isFirstPage && (state.hasReachedMax || state.status == NewsStatus.loading)) return;
+          if (isFirstPage) {
+            emit(const NewsState(status: NewsStatus.loading));
+          } else {
+            emit(state.copyWith(status: NewsStatus.loading));
+          }
+          final rest = await repo.getEverything(e.dto);
           rest.fold(
             (l) => emit(state.copyWith(status: NewsStatus.error, errorMessage: l.message)),
-            (r) => emit(state.copyWith(status: NewsStatus.loaded, data: r, hasReachedMax: false)),
+            (r) {
+              final hasReachedMax = r.items.isEmpty || r.nextPage == null;
+              if (isFirstPage) {
+                emit(state.copyWith(
+                  status: NewsStatus.loaded,
+                  data: r,
+                  hasReachedMax: hasReachedMax,
+                ));
+              } else {
+                final allItems = List<NewsModel>.from(state.data.items)..addAll(r.items);
+                emit(state.copyWith(
+                  status: NewsStatus.loaded,
+                  data: PaginationEntity(
+                    items: allItems,
+                    prevPage: r.prevPage,
+                    currentPage: r.currentPage,
+                    nextPage: r.nextPage,
+                  ),
+                  hasReachedMax: hasReachedMax,
+                ));
+              }
+            },
           );
         },
         selectCountry: (e) async {
@@ -69,7 +94,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
             hasReachedMax: false,
             errorMessage: '',
           ));
-          final dto = NewsDto(country: e.country, page: 1, pageSize: 10);
+          final dto = NewsDto(country: e.country, page: 1);
           final rest = await repo.getTopHeadlines(dto);
           rest.fold(
             (l) => emit(state.copyWith(status: NewsStatus.error, errorMessage: l.message)),

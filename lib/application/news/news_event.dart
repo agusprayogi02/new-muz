@@ -4,7 +4,5 @@ part of 'news_bloc.dart';
 sealed class NewsEvent with _$NewsEvent {
   const factory NewsEvent.getTopHeadlines(NewsDto dto) = _GetTopHeadlines;
   const factory NewsEvent.getEverything(NewsDto dto) = _GetEverything;
-  const factory NewsEvent.fetchNextPage(NewsDto dto) = _FetchNextPage;
-  const factory NewsEvent.refresh(NewsDto dto) = _Refresh;
   const factory NewsEvent.selectCountry(String country) = _SelectCountry;
 }

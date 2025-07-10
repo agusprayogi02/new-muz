@@ -29,7 +29,7 @@ class BaseScaffold extends StatelessWidget {
       appBar: appBar,
       body: SafeArea(
         child: Padding(
-          padding: padding ?? 18.all,
+          padding: padding ?? 16.all,
           child: body,
         ),
       ),
