@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:next_starter/application/news/news_bloc.dart';
+import 'package:next_starter/common/extensions/context_extension.dart';
 import 'package:next_starter/common/widgets/app_error_widget.dart';
 import 'package:next_starter/data/dto/news_dto.dart';
 import 'package:next_starter/injection.dart';
@@ -13,6 +14,7 @@ import 'package:next_starter/presentation/pages/home/components/news_no_data_wid
 import 'package:next_starter/presentation/theme/theme.dart';
 import 'package:reactive_date_range_picker/reactive_date_range_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SearchNewsPage extends StatefulWidget {
   const SearchNewsPage({super.key});
@@ -77,6 +79,17 @@ class _SearchNewsPageState extends State<SearchNewsPage> {
   Future<void> _onRefresh() async {
     _dto = _dto.copyWith(page: 1, search: _lastQuery);
     newsBloc.add(NewsEvent.getEverything(_dto));
+  }
+
+  Future<void> _openWeb(String? url) async {
+    if (url == null) {
+      context.showSnackbar(message: "URL not valid!", error: true, isPop: false);
+      return;
+    }
+    final Uri url0 = Uri.parse(url);
+    if (!await launchUrl(url0, mode: LaunchMode.externalApplication)) {
+      context.showSnackbar(message: "URL not valid!", error: true, isPop: false);
+    }
   }
 
   void _showFilterSheet() {
@@ -237,6 +250,7 @@ class _SearchNewsPageState extends State<SearchNewsPage> {
                           sourceName: news.source?.name ?? '-',
                           publishedAt:
                               news.publishedAt != null ? news.publishedAt!.split('T').first : '',
+                          onTap: () => _openWeb(news.url),
                         );
                       },
                       separatorBuilder: (context, index) => 16.verticalSpace,

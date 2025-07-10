@@ -12,6 +12,7 @@ import 'package:next_starter/presentation/pages/home/components/news_no_data_wid
 import 'package:next_starter/presentation/pages/home/components/search_news_widget.dart';
 import 'package:next_starter/presentation/pages/home/search_news/search_news_page.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../components/components.dart';
 
@@ -66,6 +67,17 @@ class _HomePageState extends State<HomePage> {
 
   void _onSearchTap() {
     context.route.push(SearchNewsPage.path);
+  }
+
+  Future<void> _openWeb(String? url) async {
+    if (url == null) {
+      context.showSnackbar(message: "URL not valid!", error: true, isPop: false);
+      return;
+    }
+    final Uri url0 = Uri.parse(url);
+    if (!await launchUrl(url0, mode: LaunchMode.externalApplication)) {
+      context.showSnackbar(message: "URL not valid!", error: true, isPop: false);
+    }
   }
 
   @override
@@ -160,6 +172,7 @@ class _HomePageState extends State<HomePage> {
                           sourceName: news.source?.name ?? '-',
                           publishedAt:
                               news.publishedAt != null ? news.publishedAt!.split('T').first : '',
+                          onTap: () => _openWeb(news.url),
                         );
                       },
                       separatorBuilder: (context, index) => 16.verticalSpace,

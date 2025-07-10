@@ -12,6 +12,7 @@ class NewsItemCard extends StatelessWidget {
   final String? publishedAt;
   final bool isVerified;
   final String? sourceLogoUrl;
+  final VoidCallback onTap;
 
   const NewsItemCard({
     super.key,
@@ -21,6 +22,7 @@ class NewsItemCard extends StatelessWidget {
     this.publishedAt,
     this.isVerified = false,
     this.sourceLogoUrl,
+    required this.onTap,
   });
 
   static Widget loading() {
@@ -56,54 +58,58 @@ class NewsItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ImageWithLoader(
-          imageUrl: imageUrl ?? '',
-          size: 80,
-          fit: BoxFit.cover,
-          radius: 12,
-        ),
-        12.horizontalSpace,
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title ?? '-',
-                style: AppStyles.text14PxSemiBold,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              12.verticalSpace,
-              Row(
-                children: [
-                  if (sourceLogoUrl != null && sourceLogoUrl!.isNotEmpty)
-                    Image.network(sourceLogoUrl!, width: 20, height: 20),
-                  if (sourceLogoUrl != null && sourceLogoUrl!.isNotEmpty) 6.horizontalSpace,
-                  Text(
-                    sourceName ?? '-',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(fontWeight: FontWeight.w600),
-                  ),
-                  if (isVerified) ...[
-                    4.horizontalSpace,
-                    Icon(Icons.verified, color: Colors.blue, size: 18),
-                  ],
-                  Spacer(),
-                  Text(
-                    DateCommonUtils.formatDate(publishedAt ?? ''),
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
-                  ),
-                ],
-              ),
-            ],
+    return InkWell(
+      onTap: onTap,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ImageWithLoader(
+            imageUrl: imageUrl ?? '',
+            size: 80,
+            fit: BoxFit.cover,
+            radius: 12,
           ),
-        ),
-      ],
+          12.horizontalSpace,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title ?? '-',
+                  style: AppStyles.text14PxSemiBold,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                12.verticalSpace,
+                Row(
+                  children: [
+                    if (sourceLogoUrl != null && sourceLogoUrl!.isNotEmpty)
+                      Image.network(sourceLogoUrl!, width: 20, height: 20),
+                    if (sourceLogoUrl != null && sourceLogoUrl!.isNotEmpty) 6.horizontalSpace,
+                    Text(
+                      sourceName ?? '-',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    if (isVerified) ...[
+                      4.horizontalSpace,
+                      Icon(Icons.verified, color: Colors.blue, size: 18),
+                    ],
+                    Spacer(),
+                    Text(
+                      DateCommonUtils.formatDate(publishedAt ?? ''),
+                      style:
+                          Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
